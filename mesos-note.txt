@@ -1,0 +1,28 @@
+1 install mesos zookeeper marathon on all nodes:
+
+   sudo apt-key adv --keyserver keyserver.ubuntu.com --recv E56151BF
+   DISTRO=$(lsb_release -is | tr '[:upper:]' '[:lower:]')
+   CODENAME=$(lsb_release -cs)
+   echo "deb http://repos.mesosphere.io/${DISTRO} ${CODENAME} main" | \
+        sudo tee /etc/apt/sources.list.d/mesosphere.list
+
+   sudo apt-get -y update && sudo apt-get -y install zookeeper mesos marathon
+   sudo update-alternatives --config java
+
+2 start mesos service:(/usr/bin/mesos-init-wrapper)
+  master:
+        sudo service mesos-master restart
+  slave:
+        sudo service mesos-slave restart
+
+3 config zookeeper:
+  echo 1 | sudo dd of=/etc/zookeeper/conf/myid 
+  in /etc/zookeeper/conf/zoo.cfg:
+     server.1=ubuntu1:2888:3888
+     server.2=ubuntu2:2888:3888
+     server.3=ubuntu3:2888:3888
+     server.4=ubuntu4:2888:3888
+  sudo service zookeeper start
+
+4 config mesos:
+  

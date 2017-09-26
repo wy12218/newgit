@@ -1,3 +1,0 @@
-hello wy!
-new line
-add staged line

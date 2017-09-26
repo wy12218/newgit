@@ -1,0 +1,8 @@
+git init
+git add
+git commit -m 
+git log
+git reset --hard HEAD^
+git reset --hard HEAD^^
+git reflog
+git reset --hard ac5391528f47e16a195189c9fca9bf0019a934cb
